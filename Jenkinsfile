@@ -23,12 +23,14 @@ pipeline {
 		
 		stage("build & SonarQube analysis") {
               steps{
-              script {
+             // script {
           // requires SonarQube Scanner 2.8+
-          scannerHome = tool 'sonarscanner'
-        }
+          //scannerHome = tool 'sonarscanner'
+       // }
         withSonarQubeEnv('SonarQube Scanner') {
+		withMaven(maven:'Maven 3.5')
           sh "${scannerHome}/bin/sonar-scanner"
+	}
         }
             }
           }
