@@ -21,27 +21,19 @@ pipeline {
 			}
 		}
 		
-		stage('package'){
-			steps{
-		withMaven(maven : 'local_maven') {
-			sh 'mvn package'
-			}
-			}
+		stage("build & SonarQube analysis") {
+              steps{
+              script {
+          // requires SonarQube Scanner 2.8+
+          scannerHome = tool 'sonarscanner'
+        }
+        withSonarQubeEnv('SonarQube Scanner') {
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
+            }
+          }
+		
 		}
-		stage('install'){
-			steps{
-		withMaven(maven : 'local_maven') {
-			sh 'mvn install'
-			}
-			}
-		}
-       stage('deploy to tomcat'){
-			steps{
-			sshagent(['dcda5da0-50df-4b50-8609-fdde21c2e396']) {
-			sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@13.57.37.49:/var/lib/tomcat/webapps' 
-		}
-			
-			}
-			}
+       
     }
 }
