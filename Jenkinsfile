@@ -28,7 +28,7 @@ pipeline {
           //scannerHome = tool 'sonarscanner'
        // }
         withSonarQubeEnv('SonarQube Scanner') {
-		withMaven(maven:'Maven 3.5')
+		withMaven(maven:'Maven 3.5'){
           sh "${scannerHome}/bin/sonar-scanner"
 	}
         }
