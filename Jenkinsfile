@@ -20,11 +20,14 @@ pipeline {
 			}
 			}
 		}		
-		stage('package'){
+	
+		stage('build and sonar analysis'){
 			steps{
-		withMaven(maven : 'local_maven') {
-			sh 'mvn package'
+			withSonarQubeEnv('kuchbi') {
+   withMaven(maven : 'local_maven') {
+			sh 'mvn clean package sonar:sonar'
 			}
+}
 			}
 		}
 		
