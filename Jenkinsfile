@@ -19,22 +19,7 @@ pipeline {
 			sh 'mvn test'
 			}
 			}
-		}
-		
-		stage("build & SonarQube analysis") {
-              steps{
-             // script {
-          // requires SonarQube Scanner 2.8+
-          //scannerHome = tool 'sonarscanner'
-       // }
-        withSonarQubeEnv('SonarQube Scanner') {
-		withMaven(maven:'Maven 3.5'){
-          sh "${scannerHome}/bin/sonar-scanner"
-	}
-        }
-            }
-          }
-		
+		}		
 		}
        
     }
