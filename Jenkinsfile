@@ -20,6 +20,14 @@ pipeline {
 			}
 			}
 		}		
+		stage('package'){
+			steps{
+		withMaven(maven : 'local_maven') {
+			sh 'mvn package'
+			}
+			}
+		}
+		
 		}
        
     }
